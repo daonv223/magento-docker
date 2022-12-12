@@ -1,7 +1,7 @@
 ## Mark Shust's Docker Configuration for Magento
 ## (https://github.com/markshust/docker-magento)
 ##
-## Version 43.2.0
+## Version 44.0.0
 
 ## To use SSH, see https://github.com/markshust/docker-magento#ssh
 ## Linux users, see https://github.com/markshust/docker-magento#linux
@@ -53,19 +53,34 @@ services:
     ports:
       - "6379:6379"
 
-  elasticsearch:
-    image: markoshust/magento-elasticsearch:7.16-0
+  opensearch:
+    image: markoshust/magento-opensearch:1.2-0
     ports:
       - "9200:9200"
       - "9300:9300"
+    env_file: env/opensearch.env
     environment:
       - "discovery.type=single-node"
       ## Set custom heap size to avoid memory errors
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       ## Avoid test failures due to small disks
       ## More info at https://github.com/markshust/docker-magento/issues/488
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "index.blocks.read_only_allow_delete"
+
+  ## If you wish to use Elasticsearch, comment out opensearch image above and
+  ## uncomment this block. Do the same in the composer.healthcheck.yaml file.
+  #elasticsearch:
+  #  image: markoshust/magento-elasticsearch:7.17-0
+  #  ports:
+  #    - "9200:9200"
+  #    - "9300:9300"
+  #  env_file: env/elasticsearch.env
+  #  environment:
+  #    - "discovery.type=single-node"
+  #    ## Avoid test failures due to small disks
+  #    ## More info at https://github.com/markshust/docker-magento/issues/488
+  #    - "cluster.routing.allocation.disk.threshold_enabled=false"
+  #    - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
     image: markoshust/magento-rabbitmq:3.9-0
