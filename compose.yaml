@@ -29,9 +29,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.app.rule=Host(`lixil.test`)"
       - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.tls=true"
       - "traefik.http.services.app-service.loadbalancer.server.port=8443"
       - "traefik.http.services.app-service.loadbalancer.server.scheme=https"
-      - "traefik.http.services.app-service.loadbalancer.serversTransport=mytransport@file"
     extra_hosts: &appextrahosts
       - "host.docker.internal:host-gateway"
       ## Selenium support, replace "magento.test" with URL of your site

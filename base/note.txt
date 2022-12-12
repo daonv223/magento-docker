@@ -1,0 +1,2 @@
+mkcert -install
+mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "lixil.test" "*.lixil.test" "magento245.test" "*.magento245.test"

@@ -1,0 +1,20 @@
+version:  '3'
+
+services:
+  reverse-proxy:
+    image: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./config/static.yml:/etc/traefik/traefik.yml:ro"
+      - "./config/dynamic.yml:/etc/traefik/dynamic.yml:ro"
+      - "./certs:/etc/certs:ro"
+    networks:
+       - reverse-proxy
+
+networks:
+  reverse-proxy:
+    name: reverse-proxy
