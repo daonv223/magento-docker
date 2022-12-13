@@ -8,8 +8,3 @@ services:
 
   phpfpm:
     volumes: *appvolumes
-
-  adminer:
-    image: adminer
-    ports:
-      - 81:8080

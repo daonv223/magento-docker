@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+  mailcatcher:
+    healthcheck:
+      test: 'wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1'

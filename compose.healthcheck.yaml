@@ -55,7 +55,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 30
-
-  mailcatcher:
-    healthcheck:
-      test: 'wget --no-verbose --tries=1 --spider 127.0.0.1:1080 || exit 1'

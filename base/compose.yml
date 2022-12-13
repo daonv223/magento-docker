@@ -13,8 +13,24 @@ services:
       - "./config/dynamic.yml:/etc/traefik/dynamic.yml:ro"
       - "./certs:/etc/certs:ro"
     networks:
-       - reverse-proxy
+       - proxy
+  
+  adminer:
+    image: adminer
+    ports:
+      - 81:8080
+    networks:
+      - database
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - "1080:1080"
+    networks:
+      - proxy
 
 networks:
-  reverse-proxy:
-    name: reverse-proxy
+  proxy:
+    external: true
+  database:
+    external: true
